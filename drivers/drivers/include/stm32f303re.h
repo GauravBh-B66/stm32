@@ -49,6 +49,11 @@
     #define GPIOG_BASEADDRESS   (AHB2_BASEADDRESS + 0x1800)
     #define GPIOH_BASEADDRESS   (AHB2_BASEADDRESS + 0x1C00)
 
+    #define TIM2_BASEADDRESS                (APB1_BASEADDRESS + 0x0000)
+    #define TIM3_BASEADDRESS                (APB1_BASEADDRESS + 0x0400)
+    #define TIM4_BASEADDRESS                (APB1_BASEADDRESS + 0x0800)
+    #define TIM6_BASEADDRESS                (APB1_BASEADDRESS + 0x1000)
+    #define TIM7_BASEADDRESS                (APB1_BASEADDRESS + 0x1400)
     #define RTC_BASEADDRESS                 (APB1_BASEADDRESS + 0x2800)
     #define WWDG_BASEADDRESS                (APB1_BASEADDRESS + 0x2C00)
     #define IWDG_BASEADDRESS                (APB1_BASEADDRESS + 0x3000)
@@ -72,6 +77,19 @@
     #define DAC1_BASEADDRESS                (APB1_BASEADDRESS + 0x7400)
     #define BXCAN_BASEADDRESS               (APB1_BASEADDRESS + 0x6400)
 
+    #define SYSCFG_BASEADDRESS              (APB2_BASEADDRESS + 0x0000)
+    #define COMP_BASEADDRESS                (APB2_BASEADDRESS + 0x0000)
+    #define OPAMP_BASEADDRESS               (APB2_BASEADDRESS + 0x0000)
+    #define EXTI_BASEADDRESS                (APB2_BASEADDRESS + 0x0400)
+    #define TIM1_BASEADDRESS                (APB2_BASEADDRESS + 0x2C00)
+    #define SPI1_BASEADDRESS                (APB2_BASEADDRESS + 0x3000)
+    #define TIM8_BASEADDRESS                (APB2_BASEADDRESS + 0x3400)
+    #define USART1_BASEADDRESS              (APB2_BASEADDRESS + 0x3800)
+    #define SPI4_BASEADDRESS                (APB2_BASEADDRESS + 0x3C00)
+    #define TIM15_BASEADDRESS               (APB2_BASEADDRESS + 0x4000)
+    #define TIM16_BASEADDRESS               (APB2_BASEADDRESS + 0x4400)
+    #define TIM17_BASEADDRESS               (APB2_BASEADDRESS + 0x4800)
+    #define TIM20_BASEADDRESS               (APB2_BASEADDRESS + 0x5000)
 
 
 
