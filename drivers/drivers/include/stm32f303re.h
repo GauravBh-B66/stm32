@@ -91,6 +91,12 @@
     #define TIM17_BASEADDRESS               (APB2_BASEADDRESS + 0x4800)
     #define TIM20_BASEADDRESS               (APB2_BASEADDRESS + 0x5000)
 
+    //ADC1 and ADC3 are master.
+    //ADC2 and ADC4 are slaves.
+    #define ADC1_BASEADDRESS               (AHB3_BASEADDRESS + 0x0000)
+    #define ADC2_BASEADDRESS               (AHB3_BASEADDRESS + 0x0000)
+    #define ADC3_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
+    #define ADC4_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
 
 
 #endif /* INCLUDE_STM32F303RE_H_ */
