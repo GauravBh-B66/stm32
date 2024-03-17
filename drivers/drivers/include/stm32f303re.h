@@ -4,6 +4,7 @@
  *  Created on: Mar 9, 2024
  *  Author: Gaurav Bhattarai
 */
+#include <stdint.h>
 
 #ifndef INCLUDE_STM32F303RE_H_
 #define INCLUDE_STM32F303RE_H_
@@ -97,6 +98,42 @@
     #define ADC2_BASEADDRESS               (AHB3_BASEADDRESS + 0x0000)
     #define ADC3_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
     #define ADC4_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
+
+
+
+    //Registers required for SPI communication:
+    typedef struct{
+        volatile uint32_t CR1;          //control register 1
+        volatile uint32_t CR2;          //control register 2
+        volatile uint32_t SR;           //status register
+        volatile uint32_t DR;           //data register
+        volatile uint32_t CRCPR;        //crc polynomial register
+        volatile uint32_t RXCRCR;       //rx crc polynomial register
+        volatile uint32_t TXCRCR;       //tx crc polynomial register
+        volatile uint32_t I2SCFGR;      //i2s configuration register
+        volatile uint32_t I2SPR;        //i2s prescaler register
+    }SpiRegDef_t;
+    SpiRegDef_t* pSPI1 = (SpiRegDef_t*)(SPI1_BASEADDRESS);
+
+
+    //Registers required for configuring RCC
+    typedef struct{
+        volatile uint32_t RCC_CR;           //clock control register
+        volatile uint32_t RCC_CFGR;         //clock configuration register
+        volatile uint32_t RCC_CIR;          //clock interrupt register
+        volatile uint32_t RCC_APB2RSTR;     //apb2 peripheral reset register
+        volatile uint32_t RCC_APB1RSTR;     //apb1 peripheral reset register
+        volatile uint32_t RCC_AHBENR;       //ahb peripheral clock enable register
+        volatile uint32_t RCC_APB2ENR;      //apb2 peripheral clock enable register
+        volatile uint32_t RCC_APB1ENR;      //apb1 peripheral clock enable register
+        volatile uint32_t RCC_BDCR;         //rtc domain control register
+        volatile uint32_t RCC_CSR;          //control/status register
+        volatile uint32_t RCC_AHBRSTR;      //ahb peripheral reset register
+        volatile uint32_t RCC_CFGR2;        //clock configuration register 2
+        volatile uint32_t RCC_CFGR3;        //clock configuration register 1
+    }RccRegDef_t;
+    RccRegDef_t* pRcc = (RccRegDef_t*)(RCC_BASEADDRESS);
+    
 
 
 #endif /* INCLUDE_STM32F303RE_H_ */
