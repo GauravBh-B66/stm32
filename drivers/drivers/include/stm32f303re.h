@@ -132,7 +132,19 @@
         volatile uint32_t RCC_CFGR2;        //clock configuration register 2
         volatile uint32_t RCC_CFGR3;        //clock configuration register 1
     }RccRegDef_t;
-    RccRegDef_t* pRcc = (RccRegDef_t*)(RCC_BASEADDRESS);
+    RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
+
+
+    //Clock enable macros for SPI
+    #define SPI1_CLK_EN()         (pRCC-> (RCC_APB2ENR |= (1 << 12)));
+    #define SPI2_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 14)));
+    #define SPI3_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 15)));
+    #define SPI4_CLK_EN()         (pRCC-> (RCC_APB2ENR |= (1 << 15)));
+
+    //Clock enable macros for I2C
+    #define I2C1_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 21)));
+    #define I2C2_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 22)));
+    #define I2C3_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 30)));
     
 
 
