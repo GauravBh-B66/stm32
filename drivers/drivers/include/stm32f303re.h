@@ -145,6 +145,19 @@
     #define I2C1_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 21)));
     #define I2C2_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 22)));
     #define I2C3_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 30)));
+
+    //Clock enable macros for USART
+    #define USART1_CLK_EN()       (pRCC->(RCC_APB2ENR |= (1 << 14)));
+    #define USART2_CLK_EN()       (pRCC->(RCC_APB1ENR |= (1 << 17)));
+    #define USART3_CLK_EN()       (pRCC->(RCC_APB1ENR |= (1 << 18)));
+
+    //Clock enable macros for UART
+    #define UART4_CLK_EN()        (pRCC->(RCC_APB1ENR |= (1 << 19)));
+    #define UART5_CLK_EN()        (pRCC->(RCC_APB1ENR |= (1 << 20)));
+
+    //Clock enable macros for CAN and USB
+    #define CAN_CLK_EN()          (pRCC->(RCC_APB1ENR |= (1 << 25)));
+    #define USB_CLK_EN()          (pRCC->(RCC_APB1ENR |= (1 << 23)));    
     
 
 
