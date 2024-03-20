@@ -135,29 +135,49 @@
     RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
 
 
-    //Clock enable macros for SPI
+    //Clock enable and disable macros for SPI
     #define SPI1_CLK_EN()         (pRCC-> (RCC_APB2ENR |= (1 << 12)));
     #define SPI2_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 14)));
     #define SPI3_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 15)));
     #define SPI4_CLK_EN()         (pRCC-> (RCC_APB2ENR |= (1 << 15)));
 
-    //Clock enable macros for I2C
+    #define SPI1_CLK_DI()         (pRCC-> (RCC_APB2ENR &= (~(1 << 12))));
+    #define SPI2_CLK_DI()         (pRCC-> (RCC_APB1ENR &= (~(1 << 14))));
+    #define SPI3_CLK_DI()         (pRCC-> (RCC_APB1ENR &= (~(1 << 15))));
+    #define SPI4_CLK_DI()         (pRCC-> (RCC_APB2ENR &= (~(1 << 15))));
+
+
+    //Clock enable and disable macros for I2C
     #define I2C1_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 21)));
     #define I2C2_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 22)));
     #define I2C3_CLK_EN()         (pRCC-> (RCC_APB1ENR |= (1 << 30)));
+
+    #define I2C1_CLK_DI()         (pRCC-> (RCC_APB1ENR &= (~(1 << 21))));
+    #define I2C2_CLK_DI()         (pRCC-> (RCC_APB1ENR &= (~(1 << 22))));
+    #define I2C3_CLK_DI()         (pRCC-> (RCC_APB1ENR &= (~(1 << 30))));
 
     //Clock enable macros for USART
     #define USART1_CLK_EN()       (pRCC->(RCC_APB2ENR |= (1 << 14)));
     #define USART2_CLK_EN()       (pRCC->(RCC_APB1ENR |= (1 << 17)));
     #define USART3_CLK_EN()       (pRCC->(RCC_APB1ENR |= (1 << 18)));
 
+    #define USART1_CLK_DI()       (pRCC->(RCC_APB2ENR &= (~(1 << 14))));
+    #define USART2_CLK_DI()       (pRCC->(RCC_APB1ENR &= (~(1 << 17))));
+    #define USART3_CLK_DI()       (pRCC->(RCC_APB1ENR &= (~(1 << 18))));
+
     //Clock enable macros for UART
     #define UART4_CLK_EN()        (pRCC->(RCC_APB1ENR |= (1 << 19)));
     #define UART5_CLK_EN()        (pRCC->(RCC_APB1ENR |= (1 << 20)));
 
+    #define UART4_CLK_DI()        (pRCC->(RCC_APB1ENR &= (~(1 << 19))));
+    #define UART5_CLK_DI()        (pRCC->(RCC_APB1ENR &= (~(1 << 20))));
+
     //Clock enable macros for CAN and USB
     #define CAN_CLK_EN()          (pRCC->(RCC_APB1ENR |= (1 << 25)));
     #define USB_CLK_EN()          (pRCC->(RCC_APB1ENR |= (1 << 23)));    
+
+    #define CAN_CLK_DI()          (pRCC->(RCC_APB1ENR &= (~(1 << 25))));    
+    #define USB_CLK_DI()          (pRCC->(RCC_APB1ENR &= (~(1 << 23))));    
     
 
 
