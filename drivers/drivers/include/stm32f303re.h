@@ -9,6 +9,8 @@
 #ifndef INCLUDE_STM32F303RE_H_
 #define INCLUDE_STM32F303RE_H_
 
+#include "stm32f303re_spiDriver.h"
+
 //Addresses of memory components
     //Flash Memory (512KB)          (0x0800 0000 - 0x0807 FFFF)
     #define FLASH_BASEADDRESS       0x08000000U
