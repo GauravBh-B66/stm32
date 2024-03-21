@@ -112,8 +112,12 @@
         volatile uint32_t TXCRCR;       //tx crc polynomial register
         volatile uint32_t I2SCFGR;      //i2s configuration register
         volatile uint32_t I2SPR;        //i2s prescaler register
-    }SpiRegDef_t;
+    }SpiRegDef_t; 
+
     SpiRegDef_t* pSPI1 = (SpiRegDef_t*)(SPI1_BASEADDRESS);
+    SpiRegDef_t* pSPI2 = (SpiRegDef_t*)(SPI2_BASEADDRESS);
+    SpiRegDef_t* pSPI3 = (SpiRegDef_t*)(SPI3_BASEADDRESS);
+    SpiRegDef_t* pSPI4 = (SpiRegDef_t*)(SPI4_BASEADDRESS);
 
 
     //Registers required for configuring RCC
