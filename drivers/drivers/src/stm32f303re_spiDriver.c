@@ -10,22 +10,6 @@
 #define SET     1
 #define RESET   0
 
-typedef struct{
-    uint8_t spiDeviceMode;
-    uint8_t spiClockSpeed;      
-    uint8_t spiBusConfig;       //Full duplex, Half duplex, Simplex.
-    uint8_t spiDff;
-    uint8_t spiCPOL;
-    uint8_t spiCPHA;
-    uint8_t spiSSM;
-}SPI_Params_t;
-
-typedef struct{
-    SpiRegDef_t*    pSPI;           //Address of the SPI channel used.
-    SPI_Params_t    paramsSPI;      //Configuration parameters for the channel.
-}SPI_Handle_t;
-
-
 
 //Peripheral Clock Setup
 void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
@@ -67,10 +51,27 @@ void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
 }
 
 //Initialization and Deinitialization
-//Send and Receive Data
+void SPI_Init(SPI_Handle_t* pSPIHandle){
+    //Configuration for CR1 register
+    uint32_t tempReg;
+    tempReg |= pSPIHandle->paramsSPI.spiDeviceMode << 2;    //Device mode configuration
 
-void spiSendData();
-void spiReceiveData();
+    if(pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_FULL_DUPLEX){
+        tempReg &= ~(1 << 15);                //Clear BIDI Mode   
+    }
+
+    else if(pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_HALF_DUPLEX){
+        tempReg |= (1 << 15);                //Set BIDI Mode   
+    }
+
+    else if (pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_HALF_DUPLEX)
+    //Configuration for CR2 register
+}
+
+
+//Send and Receive Data
+void spiSendData(SPI_Handle_t* pSPI_Handle_t);
+void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
 
 
 

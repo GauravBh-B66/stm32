@@ -19,6 +19,12 @@ typedef struct{
     uint8_t spiSSM;             //Software Slave Management
 }SPI_Params_t;
 
+typedef struct{
+    SpiRegDef_t*    pSPI;           //Address of the SPI channel used.
+    SPI_Params_t    paramsSPI;      //Configuration parameters for the channel.
+}SPI_Handle_t;
+
+
 #define SPI_DEVICE_MODE_SLAVE   0
 #define SPI_DEVICE_MODE_MASTER  1
 
@@ -56,13 +62,9 @@ typedef struct{
 #define SPI_CPHA_LO             0
 #define SPI_CPHA_HI             1
 
-#define SPI_SSM_HW              1
-#define SPI_SSM_SW              0
+#define SPI_SSM_EN              1
+#define SPI_SSM_DI              0
 
-typedef struct{
-    SpiRegDef_t*    pSPI;           //Address of the SPI channel used.
-    SPI_Params_t    paramsSPI;      //Configuration parameters for the channel.
-}SPI_Handle_t;
 
 
 
@@ -70,9 +72,9 @@ typedef struct{
 void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI);
 
 //Initialization and Deinitialization
-void SPI_Init(SPIRegDef_t* pSPIx)
-//Send and Receive Data
+void SPI_Init(SPI_Handle_t* pSPIHandle);
 
+//Send and Receive Data
 void spiSendData(SPI_Handle_t* pSPI_Handle_t);
 void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
 
