@@ -52,10 +52,13 @@ void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
 
 //Initialization and Deinitialization
 void SPI_Init(SPI_Handle_t* pSPIHandle){
-    //Configuration for CR1 register
-    uint32_t tempReg;
-    tempReg |= pSPIHandle->paramsSPI.spiDeviceMode << 2;    //Device mode configuration
 
+    uint32_t tempReg;
+
+    //Device mode configuration
+    tempReg |= pSPIHandle->paramsSPI.spiDeviceMode << 2;
+
+    //Bus configuration
     if(pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_FULL_DUPLEX){
         tempReg &= ~(1 << 15);                //Clear BIDI Mode   
     }
@@ -64,8 +67,31 @@ void SPI_Init(SPI_Handle_t* pSPIHandle){
         tempReg |= (1 << 15);                //Set BIDI Mode   
     }
 
-    else if (pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_HALF_DUPLEX)
+    else if (pSPIHandle->paramsSPI.spiBusConfig == SPI_BUS_SIMPLE_RX){
+
+        tempReg &= ~(1 << 15);                  //Clear BIDI Mode   
+        tempReg |= (1 << 10);                   //Enable RXonly mode.   
+    }
+
+
+    //Clock speed configuration
+    tempReg |= pSPIHandle->paramsSPI.spiClockSpeed << 3;
+
+    //CPOL and CPHA configuration
+    tempReg |= pSPIHandle->paramsSPI.spiCPOL << 1;
+    tempReg |= pSPIHandle->paramsSPI.spiCPHA << 0;
+
+    //Transfer the configured value to the actual register.
+    pSPIHandle->pSPI->CR1 = tempReg;
+
     //Configuration for CR2 register
+
+    //Reset the tempReg.
+    tempReg = 0;
+
+    //Data size configuration
+    tempReg |= pSPIHandle->paramsSPI.spiDataSize << 8;
+    pSPIHandle->pSPI->CR2 = tempReg;
 }
 
 

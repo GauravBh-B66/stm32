@@ -28,10 +28,12 @@ typedef struct{
 #define SPI_DEVICE_MODE_SLAVE   0
 #define SPI_DEVICE_MODE_MASTER  1
 
-#define SPI_BUS_FULL_DUPLEX     4
-#define SPI_BUS_HALF_DUPLEX     3
-#define SPI_BUS_SIMPLE_TX       2
-#define SPI_BUS_SIMPLE_RX       1
+#define SPI_BUS_FULL_DUPLEX     1
+#define SPI_BUS_HALF_DUPLEX     2
+#define SPI_BUS_SIMPLE_RX       3
+//TX only mode can be implemented same as FD mode.
+//Just leaving the MISO line unconfigured does the trick.
+// #define SPI_BUS_SIMPLE_TX       4
 
 #define SPI_SPEED_DIV_2          0
 #define SPI_SPEED_DIV_4          1
