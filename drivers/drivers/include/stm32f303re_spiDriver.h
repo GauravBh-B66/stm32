@@ -24,6 +24,35 @@ typedef struct{
     SPI_Params_t    paramsSPI;      //Configuration parameters for the channel.
 }SPI_Handle_t;
 
+//Register Position Macros
+#define SPI_CR1_CPHA        0
+#define SPI_CR1_CPOL        1
+#define SPI_CR1_MSTR        2
+#define SPI_CR1_BAUD        3
+#define SPI_CR1_SPE         6
+#define SPI_CR1_LSB_FIRST   7
+#define SPI_CR1_SSI         8
+#define SPI_CR1_SSM         9       
+#define SPI_CR1_RX_ONLY     10
+#define SPI_CR1_CRCL        11
+#define SPI_CR1_CRC_NEXT    12
+#define SPI_CR1_CRC_EN      13
+#define SPI_CR1_BIDI_OE     14
+#define SPI_CR1_BIDI_MODE   15
+
+#define SPI_CR2_RXDMAEN     0     
+#define SPI_CR2_TXDMAEN     1
+#define SPI_CR2_SSOE        2
+#define SPI_CR2_NSSP        3
+#define SPI_CR2_FRF         4
+#define SPI_CR2_ERRIE       5
+#define SPI_CR2_RXNEIE      6
+#define SPI_CR2_TXEIE       7
+#define SPI_CR2_DATA_SIZE   8     
+#define SPI_CR2_FRXTH       12
+#define SPI_CR2_LDMA_RX     13
+#define SPI_CR2_LDMA_TX     14
+
 
 #define SPI_DEVICE_MODE_SLAVE   0
 #define SPI_DEVICE_MODE_MASTER  1
