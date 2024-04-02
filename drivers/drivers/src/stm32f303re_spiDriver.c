@@ -1,7 +1,3 @@
-
-#ifndef INCLUDE_STM32F303RE_SPIDRIVER_H_
-#define INCLUDE_STM32F303RE_SPIDRIVER_H_
-
 #include "../include/stm32f303re_spiDriver.h"
 #include "../include/stm32f303re.h"
 
@@ -94,10 +90,7 @@ void SPI_Init(SPI_Handle_t* pSPIHandle){
 }
 
 
-//Send and Receive Data
-void spiSendData(SPI_Handle_t* pSPI_Handle_t);
-void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
+// //Send and Receive Data
+// void spiSendData(SPI_Handle_t* pSPI_Handle_t);
+// void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
 
-
-
-#endif /* INCLUDE_STM32F303RE_SPIDRIVER_H_ */

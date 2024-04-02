@@ -9,7 +9,7 @@
 #define SET     1
 #define RESET   0
 
-typedef struct{
+typedef struct SPI_Params_t{
     uint8_t spiDeviceMode;      //Master or Slave
     uint8_t spiClockSpeed;      
     uint8_t spiBusConfig;       //Full duplex, Half duplex, Simplex.
@@ -17,12 +17,12 @@ typedef struct{
     uint8_t spiCPOL;            //Clock Polarity
     uint8_t spiCPHA;            //Clock Phase
     uint8_t spiSSM;             //Software Slave Management
-}SPI_Params_t;
+} SPI_Params_t;
 
-typedef struct{
+typedef struct SPI_Handle_t{
     SpiRegDef_t*    pSPI;           //Address of the SPI channel used.
     SPI_Params_t    paramsSPI;      //Configuration parameters for the channel.
-}SPI_Handle_t;
+} SPI_Handle_t;
 
 //Register Position Macros
 #define SPI_CR1_CPHA        0
@@ -100,14 +100,14 @@ typedef struct{
 
 
 //Peripheral Clock Setup
-void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI);
+void spi_Clock_Control(SpiRegDef_t* , uint8_t );
 
 //Initialization and Deinitialization
-void SPI_Init(SPI_Handle_t* pSPIHandle);
+void SPI_Init(SPI_Handle_t* );
 
 //Send and Receive Data
-void spiSendData(SPI_Handle_t* pSPI_Handle_t);
-void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
+void spiSendData(SPI_Handle_t* );
+void spiReceiveData(SPI_Handle_t* );
 
 
 
