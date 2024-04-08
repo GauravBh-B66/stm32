@@ -14,6 +14,7 @@ typedef struct SPI_Params_t{
     uint8_t spiClockSpeed;      
     uint8_t spiBusConfig;       //Full duplex, Half duplex, Simplex.
     uint8_t spiDataSize;        //Data Size    
+    uint8_t spiLSBFirst;        //0 for MSB first, 1 for LSB first.  
     uint8_t spiCPOL;            //Clock Polarity
     uint8_t spiCPHA;            //Clock Phase
     uint8_t spiSSM;             //Software Slave Management
@@ -52,6 +53,20 @@ typedef struct SPI_Handle_t{
 #define SPI_CR2_FRXTH       12
 #define SPI_CR2_LDMA_RX     13
 #define SPI_CR2_LDMA_TX     14
+
+#define SPI_STATUS_RXNE     0
+#define SPI_STATUS_TXE      1
+#define SPI_STATUS_CHSIDE   2
+#define SPI_STATUS_UDR      3
+#define SPI_STATUS_CRC_ERR  4
+#define SPI_STATUS_MODF     5
+#define SPI_STATUS_OVR      6
+#define SPI_STATUS_BSY      7
+#define SPI_STATUS_FRE      8     0
+#define SPI_STATUS_FTLVL    9
+#define SPI_STATUS_FRLVL    11
+
+
 
 
 #define SPI_DEVICE_MODE_SLAVE   0
@@ -100,13 +115,14 @@ typedef struct SPI_Handle_t{
 
 
 //Peripheral Clock Setup
-void spi_Clock_Control(SpiRegDef_t* , uint8_t );
+void spi_Clock_Control(SpiRegDef_t* , uint8_t);
 
 //Initialization and Deinitialization
 void SPI_Init(SPI_Handle_t* );
+void SPI_Deinit(SPI_Handle_t* );
 
 //Send and Receive Data
-void spiSendData(SPI_Handle_t* );
+void spi_SendData(SpiRegDef_t*, uint8_t*, uint32_t);
 void spiReceiveData(SPI_Handle_t* );
 
 

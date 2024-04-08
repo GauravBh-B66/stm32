@@ -49,7 +49,7 @@ void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
 //Initialization and Deinitialization
 void SPI_Init(SPI_Handle_t* pSPIHandle){
 
-    uint32_t tempReg;
+    uint32_t tempReg = 0;
 
     //Device mode configuration
     tempReg |= pSPIHandle->paramsSPI.spiDeviceMode << SPI_CR1_MSTR;
@@ -73,6 +73,9 @@ void SPI_Init(SPI_Handle_t* pSPIHandle){
     //Clock speed configuration
     tempReg |= pSPIHandle->paramsSPI.spiClockSpeed << SPI_CR1_BAUD;
 
+    //LSB/MSB first configuration
+    tempReg |= pSPIHandle->paramsSPI.spiLSBFirst << SPI_CR1_LSB_FIRST;
+
     //CPOL and CPHA configuration
     tempReg |= pSPIHandle->paramsSPI.spiCPOL << SPI_CR1_CPOL;
     tempReg |= pSPIHandle->paramsSPI.spiCPHA << SPI_CR1_CPHA;
@@ -91,6 +94,17 @@ void SPI_Init(SPI_Handle_t* pSPIHandle){
 
 
 // //Send and Receive Data
-// void spiSendData(SPI_Handle_t* pSPI_Handle_t);
+void spi_SendData(SpiRegDef_t* pSPIx, uint8_t *txBuffer, uint32_t nBytes){
+    uint8_t nBytes = nBytes;
+    while (nBytes > 0){
+        //Check TX buffer
+        if(pSPIx->SR & (1<<1)){
+            //TX buffer is empty
+        }
+    }
+}
 // void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
 
+void SPI_Deinit(SPI_Handle_t* pSPI_Handle){
+    spi_Clock_Control(pSPI_Handle->pSPI, DISABLE);
+}
