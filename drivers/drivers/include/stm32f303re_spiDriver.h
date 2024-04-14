@@ -26,6 +26,8 @@ typedef struct SPI_Handle_t{
 } SPI_Handle_t;
 
 //Register Position Macros
+
+//Control Register 1
 #define SPI_CR1_CPHA        0
 #define SPI_CR1_CPOL        1
 #define SPI_CR1_MSTR        2
@@ -41,6 +43,7 @@ typedef struct SPI_Handle_t{
 #define SPI_CR1_BIDI_OE     14
 #define SPI_CR1_BIDI_MODE   15
 
+//Control Register 2
 #define SPI_CR2_RXDMAEN     0     
 #define SPI_CR2_TXDMAEN     1
 #define SPI_CR2_SSOE        2
@@ -54,6 +57,7 @@ typedef struct SPI_Handle_t{
 #define SPI_CR2_LDMA_RX     13
 #define SPI_CR2_LDMA_TX     14
 
+//Status Register
 #define SPI_STATUS_RXNE     0
 #define SPI_STATUS_TXE      1
 #define SPI_STATUS_CHSIDE   2
