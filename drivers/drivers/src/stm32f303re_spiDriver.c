@@ -95,7 +95,6 @@ void SPI_Init(SPI_Handle_t* pSPIHandle){
 
 // //Send and Receive Data
 void spi_SendData(SpiRegDef_t* pSPIx, uint8_t *txBuffer, uint32_t nBytes){
-    uint8_t nBytes = nBytes;
     while (nBytes > 0){
         //Check TX buffer
         if(pSPIx->SR & (1 << SPI_STATUS_TXE)){
@@ -103,13 +102,14 @@ void spi_SendData(SpiRegDef_t* pSPIx, uint8_t *txBuffer, uint32_t nBytes){
 
             //Check the data size.
             //Only 8,16 bit data is supported.
-            switch (pSPIx->CR2 & 0xf00){
-                case 0xf00: //16-bit data
-                    
-                    break;
-                case 0x700: //8-bit data
-                    break;
-                default     //Not supported yet
+            if ((pSPIx->CR2 & 0xf00) == 0xf00){
+                pSPIx->DR = *(uint16_t*)txBuffer;
+                nBytes--;
+                nBytes--;
+            }
+            else if ((pSPIx->CR2 & 0xf00) == 0x700){
+                pSPIx->DR = *txBuffer;
+                nBytes--;                
             }
 
         }
