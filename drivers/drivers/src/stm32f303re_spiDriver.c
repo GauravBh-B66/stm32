@@ -106,10 +106,12 @@ void spi_SendData(SpiRegDef_t* pSPIx, uint8_t *txBuffer, uint32_t nBytes){
                 pSPIx->DR = *(uint16_t*)txBuffer;
                 nBytes--;
                 nBytes--;
+                (uint16_t*)txBuffer++;
             }
             else if ((pSPIx->CR2 & 0xf00) == 0x700){
                 pSPIx->DR = *txBuffer;
                 nBytes--;                
+                txBuffer++;
             }
 
         }

@@ -102,6 +102,21 @@
     #define ADC4_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
 
 
+    //Registers related to GPIOs
+    typedef struct{
+        volatile uint32_t MODER;        //Port mode register
+        volatile uint32_t OTYPER;       //Output type register
+        volatile uint32_t OSPEEDR;      //Output speed register
+        volatile uint32_t PUPDOWNR;     //Pull-up/pull down register
+        volatile uint32_t IDR;          //Input data register
+        volatile uint32_t ODR;          //Output data register
+        volatile uint32_t BSRR;         //Bit set/reset register
+        volatile uint32_t LCKR;         //Configuration lock register
+        volatile uint32_t AFRL;         //Alternate function low register
+        volatile uint32_t AFRH;         //Alternate function high register
+        volatile uint32_t BRR;          //Port bit reset register
+
+    }GPIO_RegDef_t;
 
     //Registers required for SPI communication:
     typedef struct{
