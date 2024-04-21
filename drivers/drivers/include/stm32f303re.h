@@ -118,6 +118,15 @@
 
     }GPIO_RegDef_t;
 
+    GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t*)(GPIOA_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOB = (GPIO_RegDef_t*)(GPIOB_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOC = (GPIO_RegDef_t*)(GPIOC_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOD = (GPIO_RegDef_t*)(GPIOD_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOE = (GPIO_RegDef_t*)(GPIOE_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOF = (GPIO_RegDef_t*)(GPIOF_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOG = (GPIO_RegDef_t*)(GPIOG_BASEADDRESS);
+    GPIO_RegDef_t *pGPIOH = (GPIO_RegDef_t*)(GPIOH_BASEADDRESS);
+
     //Registers required for SPI communication:
     typedef struct{
         volatile uint32_t CR1;          //control register 1
