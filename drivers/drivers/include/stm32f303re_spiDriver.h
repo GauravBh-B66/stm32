@@ -119,11 +119,11 @@ typedef struct SPI_Handle_t{
 
 
 //Peripheral Clock Setup
-void spi_Clock_Control(SpiRegDef_t* , uint8_t);
+void spiClockControl(SpiRegDef_t* , uint8_t);
 
 //Initialization and Deinitialization
-void SPI_Init(SPI_Handle_t* );
-void SPI_Deinit(SPI_Handle_t* );
+void spiInit(SPI_Handle_t* );
+void spiDeinit(SPI_Handle_t* );
 
 //Send and Receive Data
 void spi_SendData(SpiRegDef_t*, uint8_t*, uint32_t);

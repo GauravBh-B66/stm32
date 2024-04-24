@@ -8,7 +8,7 @@
 
 
 //Peripheral Clock Setup
-void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
+void spiClockControl(SpiRegDef_t* pSPIx, uint8_t EN_DI){
     if(EN_DI == ENABLE){
         if (pSPIx == pSPI1){
             SPI1_CLK_EN();
@@ -47,7 +47,7 @@ void spi_Clock_Control(SpiRegDef_t* pSPIx, uint8_t EN_DI){
 }
 
 //Initialization and Deinitialization
-void SPI_Init(SPI_Handle_t* pSPIHandle){
+void spiInit(SPI_Handle_t* pSPIHandle){
 
     uint32_t tempReg = 0;
 
@@ -119,6 +119,6 @@ void spi_SendData(SpiRegDef_t* pSPIx, uint8_t *txBuffer, uint32_t nBytes){
 }
 // void spiReceiveData(SPI_Handle_t* pSPI_Handle_t);
 
-void SPI_Deinit(SPI_Handle_t* pSPI_Handle){
-    spi_Clock_Control(pSPI_Handle->pSPI, DISABLE);
+void spiDeinit(SPI_Handle_t* pSPI_Handle){
+    spiClockControl(pSPI_Handle->pSPI, DISABLE);
 }

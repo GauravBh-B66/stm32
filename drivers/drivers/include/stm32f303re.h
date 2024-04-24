@@ -9,6 +9,11 @@
 #ifndef INCLUDE_STM32F303RE_H_
 #define INCLUDE_STM32F303RE_H_
 
+#define ENABLE  1
+#define DISABLE 0
+#define SET     1
+#define RESET   0
+
 //#include "stm32f303re_spiDriver.h"
 
 //Addresses of memory components
