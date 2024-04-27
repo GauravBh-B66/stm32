@@ -169,6 +169,24 @@
     }RccRegDef_t;
     RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
 
+    //Clock enable and disable macros for GPIO
+    #define GPIOA_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 17));
+    #define GPIOB_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 18));
+    #define GPIOC_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 19));
+    #define GPIOD_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 20));
+    #define GPIOE_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 21));
+    #define GPIOF_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 22));
+    #define GPIOG_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 23));
+    #define GPIOH_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 16));
+
+    #define GPIOA_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 17)));
+    #define GPIOB_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 18)));
+    #define GPIOC_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 19)));
+    #define GPIOD_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 20)));
+    #define GPIOE_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 21)));
+    #define GPIOF_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 22)));
+    #define GPIOG_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 23)));
+    #define GPIOH_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 16)));
 
     //Clock enable and disable macros for SPI
     #define SPI1_CLK_EN()         (pRCC->RCC_APB2ENR |= (1 << 12));

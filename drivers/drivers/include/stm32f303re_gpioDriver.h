@@ -29,20 +29,75 @@ typedef struct{
     GPIO_Params_t paramsGpio;
 }GPIO_Handle_t;
 
-//Clock control
+/*
+Clock control function
+Parameters:
+    pGPIOx: Holds address of the GPIO peripheral requested.
+    en_di:  1 = Enable, 0 = Disable   
+Returns void
+*/
 void gpioClockControl(GPIO_RegDef_t *pGPIOx, uint8_t en_di);
 
-
-//Initialize and Deinitialize
+/*
+Initialize the requested GPIO
+Parameters
+    pGpioHandle: pointer to the GPIO_Handle_t datatype
+Returns void
+*/
 void gpioInit(GPIO_Handle_t *pGpioHandle);
+
+/*
+Deinitialize the requested GPIO.
+There is a special register dedicated to reset all the registers corresponding to the GPIO.
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested.
+Returns void
+*/
 void gpioDeinit(GPIO_RegDef_t *pGPIOx);
 
 
-//Read and write operations
+/*
+Read pin
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested
+    pinNumber: Selected pin
+*/
 uint8_t gpioPinRead(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
+
+
+/*
+Read port
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested
+*/
 uint16_t gpioPortRead(GPIO_RegDef_t *pGPIOx);
+
+
+/*
+Write to pin
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested
+    pinNumber: Selected pin
+    set_reset: 1 = Set, 0 = Reset
+*/
 void gpioPinWrite(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t set_reset);
+
+
+/*
+Write to port
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested
+    set_reset: 1 = Set, 0 = Reset
+*/
 void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t set_reset);
+
+
+/*
+Toggle requested pin
+Parameters
+    pGPIOx: Holds address of the GPIO peripheral requested
+    pinNumber: Selected pin
+*/
 void gpioPinToggle(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 
 //Interrupt Handling
