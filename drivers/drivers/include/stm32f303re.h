@@ -120,7 +120,6 @@
         volatile uint32_t AFRL;         //Alternate function low register
         volatile uint32_t AFRH;         //Alternate function high register
         volatile uint32_t BRR;          //Port bit reset register
-
     }GPIO_RegDef_t;
 
     GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t*)(GPIOA_BASEADDRESS);

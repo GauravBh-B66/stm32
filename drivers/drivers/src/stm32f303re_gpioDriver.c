@@ -30,3 +30,33 @@ void gpioClockControl(GPIO_RegDef_t *pGPIOx, uint8_t en_di){
         else if (pGPIOx == pGPIOH) { GPIOH_CLOCK_DI(); }
     }
 }
+
+void gpioInit(GPIO_Handle_t *pGpioHandle){
+
+    uint32_t tempReg;
+
+    //Configure modes
+    tempReg = 0;
+    tempReg = (pGpioHandle->paramsGpio.pinMode << (2*pGpioHandle->paramsGpio.pinNumber));
+    pGpioHandle->pGPIOx->MODER |= tempReg;
+
+    //Configure the speed
+    tempReg = 0;
+    tempReg = (pGpioHandle->paramsGpio.pinSpeed) << (2*pGpioHandle->paramsGpio.pinNumber);
+    pGpioHandle->pGPIOx->OSPEEDR |= tempReg;
+    
+    //Configure pull up/down resistors.
+    tempReg = 0;
+    tempReg = (pGpioHandle->paramsGpio.pinPullUpDown) << (2*pGpioHandle->paramsGpio.pinNumber);
+    pGpioHandle->pGPIOx->PUPDOWNR |= tempReg;
+
+    //Configure the output type
+    tempReg = 0;
+    tempReg = (pGpioHandle->paramsGpio.pinOutputType) << (pGpioHandle->paramsGpio.pinNumber);
+    pGpioHandle->pGPIOx->OTYPER |= tempReg;   
+    
+    //Configure the alternate functionality
+    tempReg = 0;
+    tempReg = (pGpioHandle->paramsGpio.pinOutputType) << (pGpioHandle->paramsGpio.pinNumber);
+    pGpioHandle->pGPIOx->OTYPER |= tempReg;   
+}
