@@ -57,6 +57,9 @@ void gpioInit(GPIO_Handle_t *pGpioHandle){
     
     //Configure the alternate functionality
     tempReg = 0;
+    if(pGpioHandle->paramsGpio.pinMode == MODE_ALT){
+        
+    }
     tempReg = (pGpioHandle->paramsGpio.pinOutputType) << (pGpioHandle->paramsGpio.pinNumber);
     pGpioHandle->pGPIOx->OTYPER |= tempReg;   
 }

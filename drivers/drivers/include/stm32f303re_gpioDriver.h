@@ -14,6 +14,45 @@
 
 #endif /* INCLUDE_STM32F303RE_GPIODRIVER_H_ */
 
+//GPIO pin definitions
+#define GPIO_PIN_0  0
+#define GPIO_PIN_1  1
+#define GPIO_PIN_2  2
+#define GPIO_PIN_3  3
+#define GPIO_PIN_4  4
+#define GPIO_PIN_5  5
+#define GPIO_PIN_6  6
+#define GPIO_PIN_7  7
+#define GPIO_PIN_8  8
+#define GPIO_PIN_9  9
+#define GPIO_PIN_10 10
+#define GPIO_PIN_11 11
+#define GPIO_PIN_12 12
+#define GPIO_PIN_13 13
+#define GPIO_PIN_14 14
+#define GPIO_PIN_15 15
+
+//GPIO modes
+#define MODE_INPUT  0
+#define MODE_OUTPUT 1
+#define MODE_ALT    2
+#define MODE_ANALOG 3
+
+//Output Type
+#define OTYPE_PUSH_PULL     0
+#define OTYPE_OPEN_DRAIN    1
+
+//Output Speed
+#define O_SPEED_LOW     0
+#define O_SPEED_MEDIUM  1
+#define O_SPEED_HIGH    3
+
+//Pull up/down resistors
+#define DISABLE_PUP_PDOWN   0
+#define PULL_UP_EN          1
+#define PULL_DOWN_EN        2  
+
+
 typedef struct {
     uint8_t     pinNumber;
     uint8_t     pinMode;

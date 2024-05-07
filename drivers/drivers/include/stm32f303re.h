@@ -117,8 +117,7 @@
         volatile uint32_t ODR;          //Output data register
         volatile uint32_t BSRR;         //Bit set/reset register
         volatile uint32_t LCKR;         //Configuration lock register
-        volatile uint32_t AFRL;         //Alternate function low register
-        volatile uint32_t AFRH;         //Alternate function high register
+        volatile uint32_t AFR[2];       //Alternate function register
         volatile uint32_t BRR;          //Port bit reset register
     }GPIO_RegDef_t;
 
