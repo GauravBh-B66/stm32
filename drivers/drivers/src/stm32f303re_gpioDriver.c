@@ -38,28 +38,43 @@ void gpioInit(GPIO_Handle_t *pGpioHandle){
     //Configure modes
     tempReg = 0;
     tempReg = (pGpioHandle->paramsGpio.pinMode << (2*pGpioHandle->paramsGpio.pinNumber));
+
+    pGpioHandle->pGPIOx->MODER &= ~(0x3 <<(2*pGpioHandle->paramsGpio.pinNumber));
     pGpioHandle->pGPIOx->MODER |= tempReg;
 
     //Configure the speed
     tempReg = 0;
     tempReg = (pGpioHandle->paramsGpio.pinSpeed) << (2*pGpioHandle->paramsGpio.pinNumber);
+
+    pGpioHandle->pGPIOx->OSPEEDR &= ~(0x3 <<(2*pGpioHandle->paramsGpio.pinNumber));
     pGpioHandle->pGPIOx->OSPEEDR |= tempReg;
     
     //Configure pull up/down resistors.
     tempReg = 0;
     tempReg = (pGpioHandle->paramsGpio.pinPullUpDown) << (2*pGpioHandle->paramsGpio.pinNumber);
+    
+    pGpioHandle->pGPIOx->PUPDOWNR &= ~(0x3 <<(2*pGpioHandle->paramsGpio.pinNumber));
     pGpioHandle->pGPIOx->PUPDOWNR |= tempReg;
 
     //Configure the output type
     tempReg = 0;
     tempReg = (pGpioHandle->paramsGpio.pinOutputType) << (pGpioHandle->paramsGpio.pinNumber);
+
+    pGpioHandle->pGPIOx->OTYPER &= ~(0x1 << pGpioHandle->paramsGpio.pinNumber);
     pGpioHandle->pGPIOx->OTYPER |= tempReg;   
     
     //Configure the alternate functionality
     tempReg = 0;
     if(pGpioHandle->paramsGpio.pinMode == MODE_ALT){
+        uint8_t reg, position;
+        reg = pGpioHandle->paramsGpio.pinNumber / 8;
+        position = pGpioHandle->paramsGpio.pinNumber % 8;
+
+        tempReg = pGpioHandle->paramsGpio.pinAlternateFunction << (4*position);
+
         
-    }
-    tempReg = (pGpioHandle->paramsGpio.pinOutputType) << (pGpioHandle->paramsGpio.pinNumber);
-    pGpioHandle->pGPIOx->OTYPER |= tempReg;   
+        pGpioHandle->pGPIOx->AFR[reg] &= ~(0xf << (4*position));
+        pGpioHandle->pGPIOx->AFR[reg] |= tempReg;
+        tempReg = 0;
+    } 
 }
