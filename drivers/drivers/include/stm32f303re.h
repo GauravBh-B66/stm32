@@ -186,6 +186,16 @@
     #define GPIOG_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 23)));
     #define GPIOH_CLOCK_DI()      (pRCC->RCC_AHBENR &= (~(1 << 16)));
 
+    //GPIO Reset Macros
+    #define GPIOA_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 17); pRCC->RCC_AHBRSTR &= ~(1 << 17);} while(0)
+    #define GPIOB_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 18); pRCC->RCC_AHBRSTR &= ~(1 << 18);} while(0)
+    #define GPIOC_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 19); pRCC->RCC_AHBRSTR &= ~(1 << 19);} while(0)
+    #define GPIOD_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 20); pRCC->RCC_AHBRSTR &= ~(1 << 20);} while(0)
+    #define GPIOE_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 21); pRCC->RCC_AHBRSTR &= ~(1 << 21);} while(0)
+    #define GPIOF_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 22); pRCC->RCC_AHBRSTR &= ~(1 << 22);} while(0)
+    #define GPIOG_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 23); pRCC->RCC_AHBRSTR &= ~(1 << 23);} while(0)
+    #define GPIOH_PORT_RESET()      do {pRCC->RCC_AHBRSTR |= (1 << 16); pRCC->RCC_AHBRSTR &= ~(1 << 16);} while(0)
+
     //Clock enable and disable macros for SPI
     #define SPI1_CLK_EN()         (pRCC->RCC_APB2ENR |= (1 << 12));
     #define SPI2_CLK_EN()         (pRCC->RCC_APB1ENR |= (1 << 14));

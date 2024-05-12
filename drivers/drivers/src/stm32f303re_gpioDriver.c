@@ -78,3 +78,14 @@ void gpioInit(GPIO_Handle_t *pGpioHandle){
         tempReg = 0;
     } 
 }
+
+void gpioDeinit(GPIO_RegDef_t *pGPIOx){
+        if (pGPIOx == pGPIOA)      { GPIOA_PORT_RESET(); }
+        else if (pGPIOx == pGPIOB) { GPIOB_PORT_RESET(); }
+        else if (pGPIOx == pGPIOC) { GPIOC_PORT_RESET(); }
+        else if (pGPIOx == pGPIOD) { GPIOD_PORT_RESET(); }
+        else if (pGPIOx == pGPIOE) { GPIOE_PORT_RESET(); }
+        else if (pGPIOx == pGPIOF) { GPIOF_PORT_RESET(); }
+        else if (pGPIOx == pGPIOG) { GPIOG_PORT_RESET(); }
+        else if (pGPIOx == pGPIOH) { GPIOH_PORT_RESET(); }
+}
