@@ -89,3 +89,16 @@ void gpioDeinit(GPIO_RegDef_t *pGPIOx){
         else if (pGPIOx == pGPIOG) { GPIOG_PORT_RESET(); }
         else if (pGPIOx == pGPIOH) { GPIOH_PORT_RESET(); }
 }
+
+uint8_t gpioPinRead(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber){
+    uint8_t data;
+    data = (uint8_t)(((pGPIOx->IDR) >> pinNumber) & 0x1);
+    return data;
+}
+
+uint16_t gpioPortRead(GPIO_RegDef_t *pGPIOx){
+    uint16_t data;
+    data = (uint16_t)((pGPIOx->IDR) & 0xffff);
+    return data;
+}
+
