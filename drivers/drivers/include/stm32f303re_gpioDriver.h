@@ -126,9 +126,9 @@ void gpioPinWrite(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t set_reset);
 Write to port
 Parameters
     pGPIOx: Holds address of the GPIO peripheral requested
-    set_reset: 1 = Set, 0 = Reset
+    value: value to be written into the port
 */
-void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t set_reset);
+void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t value);
 
 
 /*

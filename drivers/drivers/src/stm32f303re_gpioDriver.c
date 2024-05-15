@@ -102,3 +102,14 @@ uint16_t gpioPortRead(GPIO_RegDef_t *pGPIOx){
     return data;
 }
 
+void gpioPinWrite(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t set_reset){
+    if (set_reset == ENABLE){pGPIOx->ODR |= (1 << pinNumber);}
+    else{pGPIOx->ODR &= ~(1 << pinNumber);}
+}
+
+void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t value){
+    pGPIOx->ODR = value;
+}
+
+
+
