@@ -121,14 +121,23 @@
         volatile uint32_t BRR;          //Port bit reset register
     }GPIO_RegDef_t;
 
-    GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t*)(GPIOA_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOB = (GPIO_RegDef_t*)(GPIOB_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOC = (GPIO_RegDef_t*)(GPIOC_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOD = (GPIO_RegDef_t*)(GPIOD_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOE = (GPIO_RegDef_t*)(GPIOE_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOF = (GPIO_RegDef_t*)(GPIOF_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOG = (GPIO_RegDef_t*)(GPIOG_BASEADDRESS);
-    GPIO_RegDef_t *pGPIOH = (GPIO_RegDef_t*)(GPIOH_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t*)(GPIOA_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOB = (GPIO_RegDef_t*)(GPIOB_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOC = (GPIO_RegDef_t*)(GPIOC_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOD = (GPIO_RegDef_t*)(GPIOD_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOE = (GPIO_RegDef_t*)(GPIOE_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOF = (GPIO_RegDef_t*)(GPIOF_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOG = (GPIO_RegDef_t*)(GPIOG_BASEADDRESS);
+    // extern GPIO_RegDef_t *pGPIOH = (GPIO_RegDef_t*)(GPIOH_BASEADDRESS);
+    
+    extern GPIO_RegDef_t *pGPIOA ;
+    extern GPIO_RegDef_t *pGPIOB ;
+    extern GPIO_RegDef_t *pGPIOC ;
+    extern GPIO_RegDef_t *pGPIOD ;
+    extern GPIO_RegDef_t *pGPIOE ;
+    extern GPIO_RegDef_t *pGPIOF ;
+    extern GPIO_RegDef_t *pGPIOG ;
+    extern GPIO_RegDef_t *pGPIOH ;
 
     //Registers required for SPI communication:
     typedef struct{
@@ -143,10 +152,15 @@
         volatile uint32_t I2SPR;        //i2s prescaler register
     }SpiRegDef_t; 
 
-    SpiRegDef_t* pSPI1 = (SpiRegDef_t*)(SPI1_BASEADDRESS);
-    SpiRegDef_t* pSPI2 = (SpiRegDef_t*)(SPI2_BASEADDRESS);
-    SpiRegDef_t* pSPI3 = (SpiRegDef_t*)(SPI3_BASEADDRESS);
-    SpiRegDef_t* pSPI4 = (SpiRegDef_t*)(SPI4_BASEADDRESS);
+    // extern SpiRegDef_t* pSPI1 = (SpiRegDef_t*)(SPI1_BASEADDRESS);
+    // extern SpiRegDef_t* pSPI2 = (SpiRegDef_t*)(SPI2_BASEADDRESS);
+    // extern SpiRegDef_t* pSPI3 = (SpiRegDef_t*)(SPI3_BASEADDRESS);
+    // extern SpiRegDef_t* pSPI4 = (SpiRegDef_t*)(SPI4_BASEADDRESS);
+
+    extern SpiRegDef_t* pSPI1;
+    extern SpiRegDef_t* pSPI2;
+    extern SpiRegDef_t* pSPI3;
+    extern SpiRegDef_t* pSPI4;
 
 
     //Registers required for configuring RCC
@@ -165,7 +179,8 @@
         volatile uint32_t RCC_CFGR2;        //clock configuration register 2
         volatile uint32_t RCC_CFGR3;        //clock configuration register 1
     }RccRegDef_t;
-    RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
+    // extern RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
+    extern RccRegDef_t* pRCC;
 
     //Clock enable and disable macros for GPIO
     #define GPIOA_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 17));
