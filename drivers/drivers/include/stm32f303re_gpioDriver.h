@@ -5,14 +5,14 @@
  *      Author: user_gs
 */
 
-#include "stm32f303re.h"
 
 #ifndef INCLUDE_STM32F303RE_GPIODRIVER_H_
 #define INCLUDE_STM32F303RE_GPIODRIVER_H_
 
 
 
-#endif /* INCLUDE_STM32F303RE_GPIODRIVER_H_ */
+#include "stm32f303re.h"
+
 
 //GPIO pin definitions
 #define GPIO_PIN_0  0
@@ -142,3 +142,6 @@ void gpioPinToggle(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 //Interrupt Handling
 void gpioIRQConfig(uint8_t irqNumber, uint8_t priority, uint8_t en_di);
 void gpoiIRQHandle(uint8_t pinNumber);
+
+#endif /* INCLUDE_STM32F303RE_GPIODRIVER_H_ */
+

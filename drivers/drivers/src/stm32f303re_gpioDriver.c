@@ -7,6 +7,8 @@
 
 
 #include "../include/stm32f303re_gpioDriver.h"
+#include "../include/stm32f303re.h"
+
 
 void gpioClockControl(GPIO_RegDef_t *pGPIOx, uint8_t en_di){
     if (en_di == ENABLE){
@@ -109,6 +111,10 @@ void gpioPinWrite(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t set_reset){
 
 void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t value){
     pGPIOx->ODR = value;
+}
+
+void gpioPinToggle(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber){
+    pGPIOx->ODR ^= (1 << pinNumber);
 }
 
 
