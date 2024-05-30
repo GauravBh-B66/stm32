@@ -13,6 +13,15 @@
 
 #include "stm32f303re.h"
 
+//Port Codes
+#define CODE_A  0
+#define CODE_B  1
+#define CODE_C  2
+#define CODE_D  3
+#define CODE_E  4
+#define CODE_F  5
+#define CODE_G  6
+
 
 //GPIO pin definitions
 #define GPIO_PIN_0  0
@@ -33,10 +42,13 @@
 #define GPIO_PIN_15 15
 
 //GPIO modes
-#define MODE_INPUT  0
-#define MODE_OUTPUT 1
-#define MODE_ALT    2
-#define MODE_ANALOG 3
+#define MODE_INPUT  0   //Non interrupt
+#define MODE_OUTPUT 1   //Non interrupt
+#define MODE_ALT    2   //Non interrupt
+#define MODE_ANALOG 3   //Non interrupt
+#define MODE_IT_FT  4   //Interrupt
+#define MODE_IT_RT  5   //Interrupt
+#define MODE_IT_RFT 6   //Interrupt
 
 //Output Type
 #define OTYPE_PUSH_PULL     0

@@ -14,7 +14,15 @@
 #define SET     1
 #define RESET   0
 
-//#include "stm32f303re_spiDriver.h"
+//ARM Cortex-M4 specific NVIC Interrupt Set Enable registers (ISER)
+#define NVIC_ISER0  (volatile uint32_t*) 0xE000E100U
+#define NVIC_ISER1  (volatile uint32_t*) 0xE000E104U
+#define NVIC_ISER2  (volatile uint32_t*) 0xE000E108U
+
+//ARM Cortex-M4 specific NVIC Interrupt Clear Enable registers (ICER)
+#define NVIC_ICER0  (volatile uint32_t*) 0xE000E180U
+#define NVIC_ICER1  (volatile uint32_t*) 0xE000E184U
+#define NVIC_ICER2  (volatile uint32_t*) 0xE000E188U
 
 //Addresses of memory components
     //Flash Memory (512KB)          (0x0800 0000 - 0x0807 FFFF)
@@ -41,12 +49,12 @@
     #define PERIPHERAL_BASEADDRESS  APB1_BASEADDRESS
 
 //Addresses of peripherals
-    #define DMA1_BASEADDRESS            (AHB1_BASEADDRESS + 0x0000)
-    #define DMA2_BASEADDRESS            (AHB1_BASEADDRESS + 0x0400)
-    #define RCC_BASEADDRESS             (AHB1_BASEADDRESS + 0x1000)
-    #define FLASH_INTERFACE_BASEADDRESS (AHB1_BASEADDRESS + 0x2000)
-    #define CRC_BASEADDRESS             (AHB1_BASEADDRESS + 0x3000)
-    #define TSC_BASEADDRESS             (AHB1_BASEADDRESS + 0x4000)
+    #define DMA1_BASEADDRESS    (AHB1_BASEADDRESS + 0x0000)
+    #define DMA2_BASEADDRESS    (AHB1_BASEADDRESS + 0x0400)
+    #define RCC_BASEADDRESS     (AHB1_BASEADDRESS + 0x1000)
+    #define FLASH_BASEADDRESS   (AHB1_BASEADDRESS + 0x2000)
+    #define CRC_BASEADDRESS     (AHB1_BASEADDRESS + 0x3000)
+    #define TSC_BASEADDRESS     (AHB1_BASEADDRESS + 0x4000)
 
     #define GPIOA_BASEADDRESS   (AHB2_BASEADDRESS + 0x0000)
     #define GPIOB_BASEADDRESS   (AHB2_BASEADDRESS + 0x0400)
@@ -107,6 +115,16 @@
     #define ADC4_BASEADDRESS               (AHB3_BASEADDRESS + 0x0400)
 
 
+    //Interrupt Request Numbers (From Vector Table)
+    #define IRQNUMBER_EXTI0     6
+    #define IRQNUMBER_EXTI1     7
+    #define IRQNUMBER_EXTI2     8
+    #define IRQNUMBER_EXTI3     9
+    #define IRQNUMBER_EXTI4     10
+    #define IRQNUMBER_EXTI5_9   23
+    #define IRQNUMBER_EXTI10_15 40
+
+
     //Registers related to GPIOs
     typedef struct{
         volatile uint32_t MODER;        //Port mode register
@@ -120,15 +138,6 @@
         volatile uint32_t AFR[2];       //Alternate function register
         volatile uint32_t BRR;          //Port bit reset register
     }GPIO_RegDef_t;
-
-    // extern GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t*)(GPIOA_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOB = (GPIO_RegDef_t*)(GPIOB_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOC = (GPIO_RegDef_t*)(GPIOC_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOD = (GPIO_RegDef_t*)(GPIOD_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOE = (GPIO_RegDef_t*)(GPIOE_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOF = (GPIO_RegDef_t*)(GPIOF_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOG = (GPIO_RegDef_t*)(GPIOG_BASEADDRESS);
-    // extern GPIO_RegDef_t *pGPIOH = (GPIO_RegDef_t*)(GPIOH_BASEADDRESS);
     
     extern GPIO_RegDef_t *pGPIOA ;
     extern GPIO_RegDef_t *pGPIOB ;
@@ -138,6 +147,8 @@
     extern GPIO_RegDef_t *pGPIOF ;
     extern GPIO_RegDef_t *pGPIOG ;
     extern GPIO_RegDef_t *pGPIOH ;
+
+    extern uint8_t PORT_CODE(GPIO_RegDef_t* );  
 
     //Registers required for SPI communication:
     typedef struct{
@@ -151,11 +162,6 @@
         volatile uint32_t I2SCFGR;      //i2s configuration register
         volatile uint32_t I2SPR;        //i2s prescaler register
     }SpiRegDef_t; 
-
-    // extern SpiRegDef_t* pSPI1 = (SpiRegDef_t*)(SPI1_BASEADDRESS);
-    // extern SpiRegDef_t* pSPI2 = (SpiRegDef_t*)(SPI2_BASEADDRESS);
-    // extern SpiRegDef_t* pSPI3 = (SpiRegDef_t*)(SPI3_BASEADDRESS);
-    // extern SpiRegDef_t* pSPI4 = (SpiRegDef_t*)(SPI4_BASEADDRESS);
 
     extern SpiRegDef_t* pSPI1;
     extern SpiRegDef_t* pSPI2;
@@ -179,8 +185,42 @@
         volatile uint32_t RCC_CFGR2;        //clock configuration register 2
         volatile uint32_t RCC_CFGR3;        //clock configuration register 1
     }RccRegDef_t;
-    // extern RccRegDef_t* pRCC = (RccRegDef_t*)(RCC_BASEADDRESS);
     extern RccRegDef_t* pRCC;
+
+    //Registers required for configuring EXTI peripheral
+    typedef struct {
+        volatile uint32_t EXTI_IMR1;
+        volatile uint32_t EXTI_EMR1;
+        volatile uint32_t EXTI_RTSR1
+        volatile uint32_t EXTI_FTSR1;
+        volatile uint32_t EXTI_SWIER1;
+        volatile uint32_t EXTI_PR1;
+        volatile uint32_t EXTI_IMR2;
+        volatile uint32_t EXTI_EMR2;
+        volatile uint32_t EXTI_RTSR2;
+        volatile uint32_t EXTI_FTSR2;
+        volatile uint32_t EXTI_SWIER2;
+        volatile uint32_t EXTI_PR2;
+    }ExtiRegDef_t;
+    extern ExtiRegDef_t* pEXTI;
+
+
+    //Registers required for configuring SYSCFG registers
+    typedef struct {
+        volatile uint32_t SYSCFG_CFGR1;
+        volatile uint32_t SYSCFG_RCR;
+        volatile uint32_t SYSCFG_EXTICR[4];
+        volatile uint32_t SYSCFG_CFGR2;
+                 uint32_t  RESERVED[13];
+        volatile uint32_t SYSCFG_CFGR3;
+        volatile uint32_t SYSCFG_CFGR4;
+    }SyscfgRegDef_t;
+    extern SyscfgRegDef_t* pSYSCFG;
+
+    //Clock enable and disable macros for SYSCFG
+    #define SYSCFG_CLOCK_EN()      (pRCC->RCC_APB2ENR |= (1 << 0));
+    #define SYSCFG_CLOCK_DI()      (pRCC->RCC_APB2ENR &= ~(1 << 0));
+
 
     //Clock enable and disable macros for GPIO
     #define GPIOA_CLOCK_EN()      (pRCC->RCC_AHBENR |= (1 << 17));

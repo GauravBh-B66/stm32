@@ -38,11 +38,51 @@ void gpioInit(GPIO_Handle_t *pGpioHandle){
     uint32_t tempReg;
 
     //Configure modes
-    tempReg = 0;
-    tempReg = (pGpioHandle->paramsGpio.pinMode << (2*pGpioHandle->paramsGpio.pinNumber));
 
-    pGpioHandle->pGPIOx->MODER &= ~(0x3 <<(2*pGpioHandle->paramsGpio.pinNumber));
-    pGpioHandle->pGPIOx->MODER |= tempReg;
+    if (pGpioHandle->paramsGpio.pinMode <= MODE_ANALOG){
+        //These are the non-interrupt modes. 
+        tempReg = 0;
+        tempReg = (pGpioHandle->paramsGpio.pinMode << (2*pGpioHandle->paramsGpio.pinNumber));
+
+        pGpioHandle->pGPIOx->MODER &= ~(0x3 <<(2*pGpioHandle->paramsGpio.pinNumber));
+        pGpioHandle->pGPIOx->MODER |= tempReg;
+    }
+    else{
+        //These are the interrupt modes.
+
+        //Set the bits corresponding to Rising or Falling edge trigger for given interrupt line.
+        if (pGpioHandle->paramsGpio.pinMode == MODE_IT_FT){
+            //Set the falling edge trigger for corresponding interrupt line 
+            //Reset the rising edge trigger for corresponding interrupt line 
+            pEXTI->EXTI_FTSR1 |= (1 << (pGpioHandle->paramsGpio.pinNumber));
+            pEXTI->EXTI_RTSR1 &= ~(1 << (pGpioHandle->paramsGpio.pinNumber));
+        }
+        else if (pGpioHandle->paramsGpio.pinMode == MODE_IT_RT){ 
+            //Set the rising edge trigger for corresponding interrupt line 
+            //Reset the falling edge trigger for corresponding interrupt line 
+            pEXTI->EXTI_RTSR1 |= (1 << (pGpioHandle->paramsGpio.pinNumber));
+            pEXTI->EXTI_FTSR1 &= ~(1 << (pGpioHandle->paramsGpio.pinNumber));
+        }
+        else if (pGpioHandle->paramsGpio.pinMode == MODE_IT_RFT){
+            //Set the rising edge trigger for corresponding interrupt line 
+            //Set the falling edge trigger for corresponding interrupt line 
+            pEXTI->EXTI_RTSR1 |= (1 << (pGpioHandle->paramsGpio.pinNumber));
+            pEXTI->EXTI_FTSR1 |= (1 << (pGpioHandle->paramsGpio.pinNumber));
+        }
+
+        //Configure SYSCONFIG EXTICR register according to the port and pin specified
+        uint8_t regNum, regPos;
+        regNum = (pGpioHandle->paramsGpio.pinNumber) / 4; 
+        regPos = ((pGpioHandle->paramsGpio.pinNumber) % 4)*4;
+        SYSCFG_CLOCK_EN();
+        if (pGpioHandle->pGPIOx == pGPIOA){
+            pSYSCFG->SYSCFG_EXTICR[regNum] = PORT_CODE(pGpioHandle->pGPIOx) << regPos;  
+        }
+
+
+        //Unmask the interrupt i.e instruct the GPIO to generate an interrupt when triggered.
+        pEXTI->EXTI_IMR1 |= (1 << (pGpioHandle->paramsGpio.pinNumber));
+    }
 
     //Configure the speed
     tempReg = 0;
@@ -78,7 +118,8 @@ void gpioInit(GPIO_Handle_t *pGpioHandle){
         pGpioHandle->pGPIOx->AFR[reg] &= ~(0xf << (4*position));
         pGpioHandle->pGPIOx->AFR[reg] |= tempReg;
         tempReg = 0;
-    } 
+    }
+
 }
 
 void gpioDeinit(GPIO_RegDef_t *pGPIOx){
@@ -116,6 +157,32 @@ void gpioPortWrite(GPIO_RegDef_t *pGPIOx, uint16_t value){
 void gpioPinToggle(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber){
     pGPIOx->ODR ^= (1 << pinNumber);
 }
+
+void gpioIRQConfig(uint8_t irqNumber, uint8_t priority, uint8_t en_di){
+    if (en_di == ENABLE){
+        if (irqNumber <=31){
+            *NVIC_ISER0 |= 1 << irqNumber;
+        }
+        else if (irqNumber <=63){
+            *NVIC_ISER1 |= 1 << (irqNumber % 32);
+        }
+        else if (irqNumber <=95){
+            *NVIC_ISER2 |= 1 << (irqNumber % 64);
+        }
+    }
+    else {
+        if (irqNumber <=31){
+            *NVIC_ICER0 |= 1 << irqNumber;
+        }
+        else if (irqNumber <=63){
+            *NVIC_ICER1 |= 1 << (irqNumber % 32);
+        }
+        else if (irqNumber <=95){
+            *NVIC_ICER2 |= 1 << (irqNumber % 64);
+        }
+    }
+}
+
 
 
 
