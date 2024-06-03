@@ -24,6 +24,11 @@
 #define NVIC_ICER1  (volatile uint32_t*) 0xE000E184U
 #define NVIC_ICER2  (volatile uint32_t*) 0xE000E188U
 
+////ARM Cortex-M4 specific NVIC Interrupt Priority registers (IPR)
+#define NVIC_IPR    (volatile uint32_t*) 0xE000E400
+#define PRIORITY_BITS_NOT_IMPLEMENTED   4
+
+
 //Addresses of memory components
     //Flash Memory (512KB)          (0x0800 0000 - 0x0807 FFFF)
     #define FLASH_BASEADDRESS       0x08000000U
@@ -191,7 +196,7 @@
     typedef struct {
         volatile uint32_t EXTI_IMR1;
         volatile uint32_t EXTI_EMR1;
-        volatile uint32_t EXTI_RTSR1
+        volatile uint32_t EXTI_RTSR1;
         volatile uint32_t EXTI_FTSR1;
         volatile uint32_t EXTI_SWIER1;
         volatile uint32_t EXTI_PR1;

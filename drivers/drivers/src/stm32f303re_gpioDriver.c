@@ -159,6 +159,8 @@ void gpioPinToggle(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber){
 }
 
 void gpioIRQConfig(uint8_t irqNumber, uint8_t priority, uint8_t en_di){
+    
+    //Enabling/disabling the interrupt in processor side based on the input from user.
     if (en_di == ENABLE){
         if (irqNumber <=31){
             *NVIC_ISER0 |= 1 << irqNumber;
@@ -181,7 +183,23 @@ void gpioIRQConfig(uint8_t irqNumber, uint8_t priority, uint8_t en_di){
             *NVIC_ICER2 |= 1 << (irqNumber % 64);
         }
     }
+
+    //Configuration of the priority number
+    uint8_t regNum, regPos;
+    regNum = irqNumber / 4;
+    regPos = (irqNumber % 4)*8;
+
+    *(NVIC_IPR + regNum) |= (priority << (regPos + PRIORITY_BITS_NOT_IMPLEMENTED));
 }
+
+void gpoiIRQHandle(uint8_t pinNumber){
+    //Clear the Pending Request (PR) bit in EXTi_PR register.
+    //The register documentation suggests writing 1 into the bit position to clear the pending request.
+    if (pEXTI->EXTI_PR1 & (1 << pinNumber)){
+        pEXTI->EXTI_PR1 |= (1 << pinNumber);
+    }
+}
+
 
 
 
